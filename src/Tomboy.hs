@@ -1,4 +1,4 @@
-module Main where
+module Tomboy where
 
 import Text.XML.HXT.Arrow.ReadDocument
 import Text.XML.HXT.Core
@@ -10,7 +10,6 @@ import Control.Monad.Trans.Reader
 import Control.Monad.Trans.State
 import Control.Monad.Trans.Class
 import Control.Monad.IO.Class
-import System.Console.Readline
 import System.Environment
 import Data.Maybe
 import Data.Char
@@ -21,6 +20,15 @@ import Data.List
 import Data.UUID
 import Data.Word
 import System.Random
+
+readline :: String -> IO (Maybe String)
+readline p = do
+    putStr p
+    l <- getLine
+    return $ Just l
+
+addHistory :: String -> IO ()
+addHistory _ = return ()
 
 test_file = "/home/chime/.local/share/tomboy/c1e9d00e-2bdf-4135-a3de-475fcc4e49b9.note"
 test_dir = "/home/chime/dcode/ignesco/tomboycl/testArea/test01"
@@ -354,8 +362,9 @@ mkRandomUUID = do
     return $ toString $ fromWords w1 w2 w3 w4
 
 
-main :: IO ()
-main = do
+main' :: IO ()
+main' = do
+    hSetBuffering stdout NoBuffering
     args <- getArgs
     mainHelper args
 

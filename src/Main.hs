@@ -1,5 +1,6 @@
 module Main where
 
+import Tomboy
+
 main :: IO ()
-main = do
-  putStrLn "hello world"
+main = main'
